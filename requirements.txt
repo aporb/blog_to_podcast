@@ -1,0 +1,5 @@
+streamlit>=1.37
+trafilatura>=1.9
+ollama>=0.2.0
+openai>=1.40
+tiktoken>=0.7
