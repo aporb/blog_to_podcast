@@ -109,6 +109,7 @@ def ts_filename(prefix: str, ext: str = "wav") -> str:
     return f"{AUDIO_DIR}/{prefix}_{ts}_{safe_id}.{ext}"
 
 
+@st.cache_data
 def fetch_and_clean(url: str) -> str:
     downloaded = trafilatura.fetch_url(url)
     if not downloaded:
@@ -135,6 +136,7 @@ def make_summary_prompt(article: str, constraints_lines: list[str]) -> str:
     return header + constraints + article_block + tail
 
 
+@st.cache_data
 def summarize_with_ollama(model: str, prompt: str) -> str:
     if not ollama:
         raise RuntimeError("Ollama Python client not available. Install `ollama`." )
@@ -143,6 +145,7 @@ def summarize_with_ollama(model: str, prompt: str) -> str:
     return text
 
 
+@st.cache_data
 def summarize_with_openai(
     model: str,
     prompt: str,
@@ -640,7 +643,7 @@ with tab_script:
             if st.button("Reset Script"):
                 st.session_state.script = ""
                 st.session_state.audio_path = None
-                st.experimental_rerun()
+                st.rerun()
         with cc2:
             if st.button("Clear Audio"):
                 st.session_state.audio_path = None
